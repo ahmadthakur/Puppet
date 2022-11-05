@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { EmbedBuilder } = require("discord.js");
 const { weatherKey } = require("../../config.json");
+require ("dotenv").config();
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -17,11 +18,11 @@ module.exports = {
 
     //join two or more words together
     const joinedCity = city.split(" ").join("%20");
-    
+
     //get the weather info of the city
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${joinedCity}&appid=` +
-        weatherKey +
+      process.env.WEATHER_API_KEY +
         `&units=metric`
     );
     const data = await response.json();

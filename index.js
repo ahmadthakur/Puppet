@@ -1,5 +1,6 @@
 // Require the necessary discord.js classes
 const fs = require("node:fs");
+const dotenv = require("dotenv");
 const path = require("node:path");
 const {
   Client,
@@ -8,15 +9,17 @@ const {
   GatewayIntentBits,
   ActivityType,
 } = require("discord.js");
-const { token, tenorKey } = require("./config.json");
+
+require ("dotenv").config();
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 //require tenor api for gifs in slash commands (pat, stab, etc)
 // Create a new Tenor instance
+
 const Tenor = require("tenorjs").client({
-  Key: tenorKey, // https://tenor.com/developer/keyregistration
+  Key: process.env.TENOR_API_KEY, // https://tenor.com/developer/keyregistration
   Filter: "off", // "off", "low", "medium", "high", not case sensitive
   Locale: "en_US", // Your locale here, case-sensitivity depends on input
   MediaFilter: "minimal", // either minimal or basic, not case sensitive
@@ -57,4 +60,4 @@ for (const file of eventFiles) {
 // We use 'c' for the event parameter to keep it separate from the already defined 'client'
 
 // Log in to Discord with your client's token
-client.login(token);
+client.login(process.env.TOKEN);
