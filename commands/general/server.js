@@ -23,15 +23,15 @@ module.exports = {
         {
           name: "Members",
           value: `${memberCount}`,
-        },
+        }
         // {
         //   name: "Owner",
         //   value: owner.user.username,
         // }
       )
       .setTimestamp()
-      .setColor('Random')
-      .setFooter({text: `Server ID: "${guild.id}"`})
+      .setColor("Random")
+      .setFooter({ text: `Server ID: "${guild.id}"` })
       .setTimestamp();
 
     interaction.reply({ embeds: [embed] });
