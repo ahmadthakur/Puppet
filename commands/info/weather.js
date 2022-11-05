@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { EmbedBuilder } = require("discord.js");
-const { weatherKey } = require("../../config.json");
 require ("dotenv").config();
 
 module.exports = {
