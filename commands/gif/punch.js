@@ -1,26 +1,31 @@
 const { SlashCommandBuilder, userMention } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("punch")
-    .setDescription("Responds with punching gif.")
+    .setDescription("Responds with a punching gif.")
     .addUserOption((option) =>
-      option
+   option 
         .setName("user")
         .setDescription("The user you want to punch")
         .setRequired(true)
     ),
   async execute(interaction) {
-    await tenor.Search.Query("anime punch", "10").then((Results) => {
-      const response = Results[Math.floor(Math.random() * Results.length)].url;
+    const response = await fetch(
+      `https://tenor.googleapis.com/v2/search/anime-punch-gifs&key=${process.env.TENOR_API_KEY}&client_key=${process.env.TENOR_CLIENT_KEY}&limit=10`
+    );
+    const json = await response.json();
+    const post = json.results[Math.floor(Math.random() * json.results.length)];
 
-      // interaction.user is the object representing the User who ran the command
-      // interaction.member is the GuildMember object, which represents the user in the specific guild
-      interaction.reply(
-        `${interaction.user} punches ${interaction.options.getUser(
-          "user"
-        )} ${response}`
-      );
-    });
+    const embed = new EmbedBuilder()
+      .setTitle(
+        `${interaction.user.username} punches ${
+          interaction.options.getUser("user").username
+        }`
+      )
+      .setImage(post.media_formats.gif.url)
+      .setColor("Random");
+    interaction.reply({ embeds: [embed] });
   },
 };

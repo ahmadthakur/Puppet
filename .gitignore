@@ -1,3 +1,5 @@
-node_modules
 .env
-config.json
+fly.toml
+node_modules
+package-lock.json
+Procfile

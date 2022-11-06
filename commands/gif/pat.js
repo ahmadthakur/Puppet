@@ -1,9 +1,10 @@
 const { SlashCommandBuilder, userMention } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("pat")
-    .setDescription("Responds with a petting gif.")
+    .setDescription("Responds with a patting gif.")
     .addUserOption((option) =>
       option
         .setName("user")
@@ -11,14 +12,20 @@ module.exports = {
         .setRequired(true)
     ),
   async execute(interaction) {
-    await tenor.Search.Query("anime pat", "10").then((Results) => {
-      const response = Results[Math.floor(Math.random() * Results.length)].url;
+    const response = await fetch(
+      `https://tenor.googleapis.com/v2/search?q=anime-pat-gifs&key=${process.env.TENOR_API_KEY}&client_key=${process.env.TENOR_CLIENT_KEY}&limit=10`
+    );
+    const json = await response.json();
+    const post = json.results[Math.floor(Math.random() * json.results.length)];
 
-      interaction.reply(
-        `${interaction.user} has pat ${interaction.options.getUser(
-          "user"
-        )} ${response}`
-      );
-    });
+    const embed = new EmbedBuilder()
+      .setTitle(
+        `${interaction.user.username} pets ${
+          interaction.options.getUser("user").username
+        }`
+      )
+      .setImage(post.media_formats.gif.url)
+      .setColor("Random");
+    interaction.reply({ embeds: [embed] });
   },
 };

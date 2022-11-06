@@ -1,24 +1,31 @@
 const { SlashCommandBuilder, userMention } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("stomp")
-    .setDescription("Responds with stomping gif.")
+    .setDescription("Responds with a stomping gif.")
     .addUserOption((option) =>
       option
         .setName("user")
-        .setDescription("The user you want to stomp on")
+        .setDescription("The user you want to stomp")
         .setRequired(true)
     ),
   async execute(interaction) {
-    await tenor.Search.Query("anime stomp on someone", "10").then((Results) => {
-      const response = Results[Math.floor(Math.random() * Results.length)].url;
+    const response = await fetch(
+      `https://tenor.googleapis.com/v2/search?q=anime-stomp-gifs&key=${process.env.TENOR_API_KEY}&client_key=${process.env.TENOR_CLIENT_KEY}&limit=10`
+    );
+    const json = await response.json();
+    const post = json.results[Math.floor(Math.random() * json.results.length)];
 
-      interaction.reply(
-        `${interaction.user} stomps on ${interaction.options.getUser(
-          "user"
-        )} ${response}`
-      );
-    });
+    const embed = new EmbedBuilder()
+      .setTitle(
+        `${interaction.user.username} stomps ${
+          interaction.options.getUser("user").username
+        }`
+      )
+      .setImage(post.media_formats.gif.url)
+      .setColor("Random");
+    interaction.reply({ embeds: [embed] });
   },
 };

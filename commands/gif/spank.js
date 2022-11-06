@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, userMention } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -11,14 +12,20 @@ module.exports = {
         .setRequired(true)
     ),
   async execute(interaction) {
-    await tenor.Search.Query("anime spank", "10").then((Results) => {
-      const response = Results[Math.floor(Math.random() * Results.length)].url;
+    const response = await fetch(
+      `https://tenor.googleapis.com/v2/search?q=anime-spank-gifs&key=${process.env.TENOR_API_KEY}&client_key=${process.env.TENOR_CLIENT_KEY}&limit=10`
+    );
+    const json = await response.json();
+    const post = json.results[Math.floor(Math.random() * json.results.length)];
 
-      interaction.reply(
-        `${interaction.user} spanked ${interaction.options.getUser(
-          "user"
-        )} ${response}`
-      );
-    });
+    const embed = new EmbedBuilder()
+      .setTitle(
+        `${interaction.user.username} spanks ${
+          interaction.options.getUser("user").username
+        }`
+      )
+      .setImage(post.media_formats.gif.url)
+      .setColor("Random");
+    interaction.reply({ embeds: [embed] });
   },
 };
