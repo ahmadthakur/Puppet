@@ -20,8 +20,6 @@ module.exports = {
     const embed = new EmbedBuilder()
       .setTitle(`User info for "${user.username}"`)
       .setDescription(`This is the user's info`)
-      //.setAuthor(`${interaction.user.username}`)
-      //.setFooter("This is a footer")
       .setColor("Random")
       .setTimestamp()
       .addFields(

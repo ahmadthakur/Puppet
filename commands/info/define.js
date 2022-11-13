@@ -12,24 +12,23 @@ module.exports = {
         .setRequired(true)
     ),
   async execute(interaction) {
-
-    //use dictionary api to get definition of word
     const word = interaction.options.getString("word");
-
-    //join two or more words together
     const joinedWord = word.split(" ").join("%20");
-    
-    //get the definition of the word
+
     const response = await fetch(
       `https://api.dictionaryapi.dev/api/v2/entries/en/${joinedWord}`
     );
     const data = await response.json();
+    const partOfSpeech = data[0].meanings[0].partOfSpeech;
+    const pronunciation = data[0].phonetics[0].text;
     const definition = data[0].meanings[0].definitions[0].definition;
-    const example = data[0].meanings[0].definitions[0].example;
     const embed = new EmbedBuilder()
       .setTitle(`Definition of ${word}`)
       .setDescription(`${definition}`)
-      .addFields({ name: "Example", value: example })
+      .addFields(
+        { name: "Pronunciation", value: pronunciation },
+        { name: "Type", value: partOfSpeech }
+      )
       .setColor("Random")
       .setTimestamp();
     await interaction.reply({ embeds: [embed] });
