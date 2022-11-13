@@ -6,6 +6,6 @@ module.exports = {
       activities: [{ name: "currently under development" }],
       status: "online",
     });
-    console.log(`Ready! Logged in as ${client.user.tag}`);
+    console.log("[Bot Status]; Bot is online");
   },
 };

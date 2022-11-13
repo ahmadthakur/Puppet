@@ -9,7 +9,9 @@ module.exports = {
     const embed = new EmbedBuilder()
       .setTitle("Info")
       .setDescription("This bot was created by Sushi")
-      .addFields({ name: "GitHub", value: "https://github.com/Sushipie" })
+      .addFields({ name: "GitHub", value: "https://github.com/Sushipie" },
+        //{ name: "Website", value: "https://sushipie.github.io" },
+        { name: "Discord", value: "https://discord.gg/ub2uBspmMW" })   
       .setColor("Random")
       .setTimestamp();
     await interaction.reply({ embeds: [embed] });
