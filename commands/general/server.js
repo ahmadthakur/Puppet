@@ -23,11 +23,8 @@ module.exports = {
         {
           name: "Members",
           value: `${memberCount}`,
-        }
-        // {
-        //   name: "Owner",
-        //   value: owner.user.username,
-        // }
+        },
+        { name: "Invite Link", value: `https://discord.gg/tJN48sJZGU` }
       )
       .setTimestamp()
       .setColor("Random")
