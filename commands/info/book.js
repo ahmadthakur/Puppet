@@ -28,9 +28,17 @@ module.exports = {
       .setImage(data.items[0].volumeInfo.imageLinks.thumbnail)
       .setDescription(`${description}`)
       .addFields(
-        { name: "Author", value: author, inline: true  },
-        { name: "Rating", value: `${data.items[0].volumeInfo.averageRating}`, inline: true },
-        { name: "Category", value: data.items[0].volumeInfo.categories[0], inline: true },
+        { name: "Author", value: author, inline: true },
+        {
+          name: "Rating",
+          value: `${data.items[0].volumeInfo.averageRating}`,
+          inline: true,
+        },
+        {
+          name: "Category",
+          value: data.items[0].volumeInfo.categories[0],
+          inline: true,
+        }
       )
       .setColor("Random")
       .setTimestamp();

@@ -9,10 +9,11 @@ const {
   Events,
   GatewayIntentBits,
   ActivityType,
+  ActionRowBuilder,
 } = require("discord.js");
 const mongoose = require("mongoose");
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: 32767 });
 
 //Slash Commands Handler with subfolders support
 client.commands = new Collection();
@@ -27,19 +28,33 @@ for (const folder of commandFolders) {
   }
 }
 
-//Event handler
-const eventsPath = path.join(__dirname, "events");
-const eventFiles = fs
-  .readdirSync(eventsPath)
-  .filter((file) => file.endsWith(".js"));
+//Events handler with subfolders support
+client.events = new Collection();
+const eventsFolders = fs.readdirSync("./events");
+for (const folder of eventsFolders) {
+  const eventFiles = fs
+    .readdirSync(`./events/${folder}`)
+    .filter((file) => file.endsWith(".js"));
+  for (const file of eventFiles) {
+    const event = require(`./events/${folder}/${file}`);
+    if (event.once) {
+      client.once(event.name, (...args) => event.execute(...args));
+    } else {
+      client.on(event.name, (...args) => event.execute(...args));
+    }
+  }
+}
 
-for (const file of eventFiles) {
-  const filePath = path.join(eventsPath, file);
-  const event = require(filePath);
-  if (event.once) {
-    client.once(event.name, (...args) => event.execute(...args));
-  } else {
-    client.on(event.name, (...args) => event.execute(...args));
+//Components handler with subfolders support
+client.components = new Collection();
+const componentFolders = fs.readdirSync("./components");
+for (const folder of componentFolders) {
+  const componentFiles = fs
+    .readdirSync(`./components/${folder}`)
+    .filter((file) => file.endsWith(".js"));
+  for (const file of componentFiles) {
+    const component = require(`./components/${folder}/${file}`);
+    client.components.set(component.data.name, component);
   }
 }
 

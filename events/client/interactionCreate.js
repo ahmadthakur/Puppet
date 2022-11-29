@@ -5,7 +5,7 @@ module.exports = {
     const command = interaction.client.commands.get(interaction.commandName);
     if (!command) {
       console.error(
-          `[Command Handler]; No command found with name "${interaction.commandName}"`
+        `[Command Handler]; No command found with name "${interaction.commandName}"`
       );
       return;
     }
