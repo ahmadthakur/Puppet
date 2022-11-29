@@ -4,7 +4,13 @@ const { RockPaperScissors } = require("discord-gamecord");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("rockpaperscissors")
-    .setDescription("Rock Paper Scissors"),
+    .setDescription("Rock Paper Scissors")
+    .addUserOption((option) =>
+      option
+        .setName("user")
+        .setDescription("The user you want to spank")
+        .setRequired(true)
+    ),
   async execute(interaction) {
     const Game = new RockPaperScissors({
       message: interaction,
