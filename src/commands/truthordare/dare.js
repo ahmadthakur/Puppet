@@ -10,7 +10,7 @@ const {
     data: new SlashCommandBuilder().setName("dare").setDescription("Gives a random dare that has to be completed"),
     async execute(interaction) {
       //fetching the truth or dare questions from api
-      const response = await fetch("https://api.truthordarebot.xyz/v1/truth");
+      const response = await fetch("https://api.truthordarebot.xyz/v1/dare");
       const json = await response.json();
       const dare = json.question;
       console.log(dare);

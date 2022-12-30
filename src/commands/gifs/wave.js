@@ -1,5 +1,4 @@
-const { SlashCommandBuilder, userMention } = require("discord.js");
-const { EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -19,13 +18,13 @@ module.exports = {
     const post = json.results[Math.floor(Math.random() * json.results.length)];
 
     const embed = new EmbedBuilder()
-      .setTitle(
-        `${interaction.user.username} waves to ${
-          interaction.options.getUser("user").username
-        }`
-      )
       .setImage(post.media_formats.gif.url)
       .setColor("Random");
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({
+      content: `<@${interaction.user.id}> waves at <@${
+        interaction.options.getUser("user").id
+      }>`,
+      embeds: [embed],
+    });
   },
 };

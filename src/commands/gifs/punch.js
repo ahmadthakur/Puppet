@@ -1,31 +1,30 @@
-const { SlashCommandBuilder, userMention } = require("discord.js");
-const { EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("punch")
     .setDescription("Responds with a punching gif.")
     .addUserOption((option) =>
-   option 
+      option
         .setName("user")
         .setDescription("The user you want to punch")
         .setRequired(true)
     ),
   async execute(interaction) {
     const response = await fetch(
-      `https://tenor.googleapis.com/v2/search/anime-punch-gifs&key=${process.env.TENOR_API_KEY}&client_key=${process.env.TENOR_CLIENT_KEY}&limit=10`
+      `https://tenor.googleapis.com/v2/search?q=anime-punch-gifs&key=${process.env.TENOR_API_KEY}&client_key=${process.env.TENOR_CLIENT_KEY}&limit=10`
     );
     const json = await response.json();
     const post = json.results[Math.floor(Math.random() * json.results.length)];
 
     const embed = new EmbedBuilder()
-      .setTitle(
-        `${interaction.user.username} punches ${
-          interaction.options.getUser("user").username
-        }`
-      )
       .setImage(post.media_formats.gif.url)
       .setColor("Random");
-    interaction.reply({ embeds: [embed] });
+    interaction.reply({
+      content: `<@${interaction.user.id}> punches <@${
+        interaction.options.getUser("user").id
+      }>`,
+      embeds: [embed],
+    });
   },
 };

@@ -11,7 +11,7 @@ module.exports = {
       } catch (error) {
         console.error(
           colors.red(
-            `[Command Handler]; No command found with name "${interaction.commandName}"`
+            `[Command Handler]; No command found with name "${interaction.commandName}", ${error}`
           )
         );
         await interaction.reply({
@@ -28,7 +28,7 @@ module.exports = {
       } catch (error) {
         console.error(
           colors.red(
-            `[Button Handler]; No button found with name "${interaction.customId}"`
+            `[Button Handler]; No button found with name "${interaction.customId}", ${error}`
           )
         );
         await interaction.reply({
