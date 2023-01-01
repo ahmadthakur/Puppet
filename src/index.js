@@ -5,6 +5,12 @@ const { Client, Collection } = require("discord.js");
 
 const client = new Client({ intents: 32767 });
 
+const { Player } = require("discord-player");
+const player = new Player(client)//   leaveOnEmpty: false, // This options are optional.
+// });
+// You can define the Player as *client.player* to easily access it.
+client.player = player;
+
 client.commands = new Collection();
 client.buttons = new Collection();
 client.commandsArray = [];

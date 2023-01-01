@@ -32,6 +32,19 @@ module.exports = (client) => {
             connection.on(mongo.name, (...args) => mongo.execute(...args));
           }
           break;
+
+        case "music":
+          for (const file of eventFiles) {
+            const music = require(`../../events/${folder}/${file}`);
+            if (music.once) {
+              client.player.once(music.name, (...args) =>
+                music.execute(...args)
+              );
+            }
+
+            client.player.on(music.name, (...args) => music.execute(...args));
+          }
+          break;
         default:
           break;
         // console.log(`[Events Handler]; No event folder found with name "${folder}"`);
