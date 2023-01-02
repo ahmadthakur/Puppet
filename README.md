@@ -1,4 +1,4 @@
-#Sad Machine
+# Sad Machine
 
 A Discord bot built using [Discord.js](https://discord.js.org/#/)
 
