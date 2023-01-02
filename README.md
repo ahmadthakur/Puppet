@@ -2,16 +2,16 @@
 
 A Discord bot built using [Discord.js](https://discord.js.org/#/)
 
-**Note:** This bot is still a work in progress and new features are being added on a regular basis. As a result, things may break from time to time. We apologize for any inconvenience this may cause. If you would like to contribute to the development of the bot, feel free to make a pull request.
+**Note:** This bot is still a work in progress and new features are being added on a regular basis. As a result, things may break from time to time. I apologize for any inconvenience this may cause. If you would like to contribute to the development of the bot, feel free to make a pull request.
 
-## Features
+## Features :sparkles:
 
 -   Music: Play songs from YouTube, Spotify, and SoundCloud by using the `/play` command.
 -   GIFs: Use GIFs to interact with other users such as `/hug`, `/slap`, `/punch` etc.
 -   Information: Get information on various stuff such as `/weather`, `/anime`, `/manga`, etc.
 -   Truth or Dare: Play a game of truth or dare by using `/truth` or `/dare`.
 
-## Slash Commands
+## Slash Commands :keyboard:
 
 This bot uses slash commands to perform its various functions. You can see all the available commands in the source code. Here are some of the commands.
 
@@ -21,7 +21,7 @@ This bot uses slash commands to perform its various functions. You can see all t
 -   `/tictactoe` Play a game of tic-tac-toe.
 -   `/horoscope` Check out your horoscope for yesterday, today or tomorrow.
 
-## Getting Started
+## Getting Started :rocket:
 
 To add this bot to your Discord server, you will need to follow these steps:
 
@@ -29,7 +29,7 @@ To add this bot to your Discord server, you will need to follow these steps:
 2.  Add your api keys in given `.env.example` and rename it to `.env`.
 3.  Navigate to the folder and run `npm run src/index.js`
 
-## Hosting
+## Hosting :cloud:
 
 I am hosting the bot on Fly.io. It is a great alternative to Heroku's free tier that has been shut down. If you want to host your own bot, you can follow these steps:
 
@@ -45,4 +45,4 @@ Fly.io will create a `fly.toml` file that basically configures the remote machin
 You also need to add a `Procfile` in the bot's directory with the following line:
 `worker: node src/index.js`
 
-After following these steps, your bot should be up and running on your Discord server.
+After following these steps, your bot should be up and running on your Discord server. :white_check_mark:
