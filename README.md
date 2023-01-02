@@ -25,9 +25,9 @@ This bot uses slash commands to perform its various functions. You can see all t
 
 To add this bot to your Discord server, you will need to follow these steps:
 
-1.  Clone the repository using `git clone https://github.com/Sushipie/Sad_Machine.git`
+1.  Clone the repository using `git clone https://github.com/Sushipie/Sad_Machine.git`.
 2.  Add your api keys in given `.env.example` and rename it to `.env`.
-3.  Navigate to the folder and run `npm run src/index.js`
+3.  Navigate to the folder, open the terminal, and run `npm install`. Then run `npm run src/index.js`.
 
 ## Hosting :cloud:
 
