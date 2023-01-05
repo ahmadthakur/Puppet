@@ -8,7 +8,7 @@ module.exports = {
     .setDescription("Adds a track to the end of the server queue.")
     .addStringOption((option) =>
       option
-        .setName("query")
+        .setName("song")
         .setDescription("Enter a track name, artist name, or URL.")
         .setRequired(true)
     ),
@@ -32,7 +32,7 @@ module.exports = {
       return await interaction.editReply({ embeds: [embed] });
     }
 
-    const query = interaction.options.getString("query");
+    const query = interaction.options.getString("song");
     const queue = interaction.client.player.createQueue(interaction.guild, {
       leaveOnEnd: true,
       leaveOnStop: true,

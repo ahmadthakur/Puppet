@@ -1,4 +1,4 @@
-FROM node:v18.12.0.
+FROM node:18-alpine3.16
 
 ENV NODE_ENV=production
 
