@@ -15,29 +15,29 @@ module.exports = {
         }
 
         const progress = queue.createProgressBar();
-        embed.setDescription(`${progress}\n \n**[${queue.current.title}](${queue.current.url})** by **${queue.current.author}** is currently playing in **${interaction.guild.name}**. This track was requested by <@${queue.current.requestedBy.id}>.`);
+        embed.setDescription(`${progress}\n \n**[${queue.current.title}](${queue.current.url})** by **${queue.current.author}** is currently playing in. This track was requested by <@${queue.current.requestedBy.id}>.`);
 
         embed.setThumbnail(queue.current.thumbnail);
 
         const row = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
               .setCustomId(`melody_back_song`)
-              .setLabel("Back")
+              .setLabel("⏮ Back")
               // .setEmoji(config.backEmoji.length <= 3 ? { name: config.backEmoji.trim() } : { id: config.backEmoji.trim() })
               .setStyle(ButtonStyle.Secondary),
             new ButtonBuilder()
               .setCustomId(`melody_pause_song`)
-              .setLabel("Pause")
+              .setLabel("⏸ Pause")
               // .setEmoji(config.pauseEmoji.length <= 3 ? { name: config.pauseEmoji.trim() } : { id: config.pauseEmoji.trim() })
               .setStyle(ButtonStyle.Secondary),
             new ButtonBuilder()
               .setCustomId(`melody_skip_song`)
-              .setLabel("Skip")
+              .setLabel("⏭ Skip")
               // .setEmoji(config.pauseEmoji.length <= 3 ? { name: config.skipEmoji.trim() } : { id: config.skipEmoji.trim() })
               .setStyle(ButtonStyle.Secondary),
             new ButtonBuilder()
               .setCustomId(`melody_stop_song`)
-              .setLabel("Stop")
+              .setLabel("⏹ Stop")
               // .setEmoji(config.stopEmoji.length <= 3 ? { name: config.stopEmoji.trim() } : { id: config.stopEmoji.trim() })
               .setStyle(ButtonStyle.Secondary),
             // new ButtonBuilder()
