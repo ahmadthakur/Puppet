@@ -6,6 +6,7 @@ const {
   ButtonStyle,
 } = require("discord.js");
 const libgen = require("libgenesis");
+const GoodReadsParser = require("goodreads-parser");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -17,58 +18,83 @@ module.exports = {
         .setDescription("The book you want to get information of.")
         .setRequired(true)
     ),
-  async execute(interaction) { 
+  async execute(interaction) {
     await interaction.deferReply();
     const book = interaction.options.getString("book");
-    const joinedBook = book.split(" ").join("%20");
+    // const joinedBook = book.split(" ").join("%20");
 
-    const response = await fetch(
-      `https://www.googleapis.com/books/v1/volumes?q=${joinedBook}`
-    );
-    const data = await response.json();
-    const title = data.items[0].volumeInfo.title;
-    const author = data.items[0].volumeInfo.authors[0];
-    const description = data.items[0].volumeInfo.description;
+    const response = await GoodReadsParser.searchBooks({ q: book });
+    console.log(response.books[0]);
+    const bookData = response.books[0];
 
-    let downloadLink = libgen(title)
+    const title = bookData.title;
+    const author = bookData.author;
+
+    const goodreadsURL = bookData.url;
+    const bookTitle = bookData.title;
+    const rating = bookData.rating;
+    const moreBookData = await GoodReadsParser.getBook({ url: goodreadsURL });
+    console.log(moreBookData);
+    const description = moreBookData.description;
+    const genre1 = moreBookData.genres[0];
+    const genre2 = moreBookData.genres[1];
+    const genre3 = moreBookData.genres[2];
+    const cover = moreBookData.coverLarge;
+
+    const embed = new EmbedBuilder()
+      .setTitle(`${bookTitle}`)
+      .setImage(cover)
+      .setDescription(`${description}`)
+      .addFields(
+        { name: "Author", value: `${author}`, inline: true },
+        {
+          name: "Rating",
+          value: `${rating}`,
+          inline: true,
+        },
+        {
+          name: "Category",
+          value: `${genre1}, ${genre2}, ${genre3}`,
+          inline: true,
+        }
+      )
+      .setColor("Random")
+      .setTimestamp();
+
+    libgen(title)
       .then(function (books) {
-        
-        const book = books[0].download.replace(/\s+/g, "%20");
-        const bookUrl = book.trim();
+        console.log(books)
+        const book = books[0].download;
+        const bookUrl = book.replace(/\s+/g, "%20");
 
         console.log(bookUrl);
 
-        const row = new ActionRowBuilder().addComponents(
-          new ButtonBuilder()
-            .setURL(bookUrl)
-            .setLabel("Epub")
-            .setStyle(ButtonStyle.Link)
-        );
-
-        const embed = new EmbedBuilder()
-          .setTitle(`${title}`)
-          .setImage(data.items[0].volumeInfo.imageLinks.thumbnail)
-          .setDescription(`${description}`)
-          .addFields(
-            { name: "Author", value: author, inline: true },
-            {
-              name: "Rating",
-              value: `${data.items[0].volumeInfo.averageRating}`,
-              inline: true,
-            },
-            {
-              name: "Category",
-              value: data.items[0].volumeInfo.categories[0],
-              inline: true,
-            }
+        const row = new ActionRowBuilder()
+          .addComponents(
+            new ButtonBuilder()
+              .setURL(bookUrl)
+              .setLabel("🔽 Download")
+              .setStyle(ButtonStyle.Link)
           )
-          .setColor("Random")
-          .setTimestamp();
+          .addComponents(
+            new ButtonBuilder()
+              .setURL(goodreadsURL)
+              .setLabel("Goodreads")
+              .setStyle(ButtonStyle.Link)
+          );
 
         interaction.editReply({ embeds: [embed], components: [row] });
       })
       .catch(function (err) {
         console.log(err);
+        const row = new ActionRowBuilder().addComponents(
+          new ButtonBuilder()
+            .setURL(goodreadsURL)
+            .setLabel("Goodreads")
+            .setStyle(ButtonStyle.Link)
+        );
+
+        interaction.editReply({ embeds: [embed], components: [row] });
       });
   },
 };

@@ -100,7 +100,7 @@ module.exports = {
     if (!res.playlist) {
       embed
         .setTitle("Added to queue")
-        .setDescription(`[${res.tracks[0].title}](${res.tracks[0].url})`)
+        .setDescription(`[${res.tracks[0].title}](${res.tracks[0].url})** by **${res.tracks[0].author}`)
         .setThumbnail(res.tracks[0].thumbnail);
     } else {
       embed.setDescription(
