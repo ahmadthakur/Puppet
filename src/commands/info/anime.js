@@ -12,7 +12,7 @@ module.exports = {
     ),
   async execute(interaction) {
     const anime = interaction.options.getString("anime");
-    const joinedAnime = anime.split(" ").join("+");
+    const joinedAnime = anime.split(" ").join("%20");
 
     const response = await fetch(
       `https://api.jikan.moe/v4/anime?q=${joinedAnime}`

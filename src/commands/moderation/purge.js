@@ -4,13 +4,13 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("purge")
     .setDescription("Deletes messages.")
-    .setDefaultMemberPermissions(PermissionFlagsBits.MANAGE_MESSAGES)
     .addIntegerOption((option) =>
       option
         .setName("amount")
         .setDescription("The amount of messages to delete.")
         .setRequired(true)
-    ),
+    )
+    .setDefaultMemberPermissions(PermissionFlagsBits.MANAGE_MESSAGES),
   async execute(interaction) {
     const amount = interaction.options.getInteger("amount");
     if (amount <= 1 || amount > 100) {
