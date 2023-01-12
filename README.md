@@ -2,10 +2,6 @@
 
 A Discord bot built using [Discord.js](https://discord.js.org/#/)
 
-<img align="left" alt="JavaScript" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg" />
-<img align="left" alt="NodeJS" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" />
-<img align="left" alt="CSS" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/discordjs/discordjs-plain.svg" />
-
 **Note:** This bot is still a work in progress and new features are being added on a regular basis. As a result, things may break from time to time. I apologize for any inconvenience this may cause. If you would like to contribute to the development of the bot, feel free to make a pull request.
 
 ## Features :sparkles:
