@@ -6,11 +6,11 @@ A Discord bot built using [Discord.js](https://discord.js.org/#/)
 
 ## Features :sparkles:
 
-- Moderation: Basic moderation like `/kick`, `/ban`, `/mute`, and `/lock`
-- Music: Play songs from YouTube, Spotify, and SoundCloud by using the `/play` command
-- GPT-3: GPT-3 integration, which enables advanced language processing capabilities such as text generation and question answering using [Cohere API](https://cohere.ai/)
-- Information: Get information on various stuff such as `/weather`, `/anime`, `/manga`, `/book`, etc.
-- Games: Play games such as `/truth` or `/dare` and `tictactoe`
+- **Moderation:** Basic moderation like `/kick`, `/ban`, `/mute`, and `/lock`
+- **Music:** Play songs from YouTube, Spotify, and SoundCloud by using the `/play` command
+- **GPT-3:** GPT-3 integration, which enables advanced language processing capabilities such as text generation and question answering using [Cohere API](https://cohere.ai/)
+- **Information:** Get information on various stuff such as `/weather`, `/anime`, `/manga`, `/book`, etc.
+- **Games:** Play games such as `/truth` or `/dare` and `tictactoe`
 
 ## Slash Commands :keyboard:
 
