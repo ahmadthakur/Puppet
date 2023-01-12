@@ -12,7 +12,7 @@ module.exports = {
     ),
   async execute(interaction) {
     const response = await fetch(
-      `https://tenor.googleapis.com/v2/search?q=anime-bite-gifse&key=${process.env.TENOR_API_KEY}&client_key=${process.env.TENOR_CLIENT_KEY}&limit=10`
+      `https://tenor.googleapis.com/v2/search?q=anime-bite-gifs&key=${process.env.TENOR_API_KEY}&client_key=${process.env.TENOR_CLIENT_KEY}&limit=10`
     );
     const json = await response.json();
     const post = json.results[Math.floor(Math.random() * json.results.length)];

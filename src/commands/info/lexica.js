@@ -12,7 +12,7 @@ module.exports = {
     ),
   async execute(interaction) {
     const category = interaction.options.getString("category");
-    const joinedCategory = category.split(" ").join("+");
+    const joinedCategory = category.split(" ").join("%20");
     const response = await fetch(
       `https://lexica.art/api/v1/search?q=${joinedCategory}`
     );
