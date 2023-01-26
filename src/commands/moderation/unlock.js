@@ -8,9 +8,11 @@ module.exports = {
     .setDescription("Unlocks a channel")
     .setDefaultMemberPermissions(PermissionFlagsBits.MANAGE_CHANNELS),
   async execute(interaction) {
-    const role = interaction.guild.roles.everyone;
+    const role = interaction.guild.roles.cache.find(
+      (role) => role.name === "Members"
+    );
     await interaction.channel.permissionOverwrites.edit(role, {
-      SEND_MESSAGES: true,
+      SendMessages: true,
     });
     interaction.reply({
       content: `Unlocked ${interaction.channel}`,

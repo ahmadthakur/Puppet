@@ -19,7 +19,7 @@ module.exports = {
         .setDescription("The time to mute the user for in minutes")
         .setRequired(true)
     )
-    .setDefaultMemberPermissions(PermissionFlagsBits.MANAGE_MESSAGES),
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
   async execute(interaction) {
     const member = interaction.options.getMember("user");
     const time = interaction.options.getString("time");

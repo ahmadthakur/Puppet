@@ -10,7 +10,7 @@ module.exports = {
         .setDescription("The amount of messages to delete.")
         .setRequired(true)
     )
-    .setDefaultMemberPermissions(PermissionFlagsBits.MANAGE_MESSAGES),
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
   async execute(interaction) {
     const amount = interaction.options.getInteger("amount");
     if (amount <= 1 || amount > 100) {

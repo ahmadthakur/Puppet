@@ -65,7 +65,7 @@ module.exports = {
     });
 
     if (!res) {
-      await queue.destroy();
+      // await queue.destroy();
       embed.setDescription(
         `I couldn't find anything with the name **${query}**.`
       );
@@ -83,7 +83,7 @@ module.exports = {
           embed.setDescription(
             `I couldn't find anything with the name **${query}**.`
           );
-          await queue.destroy();
+          // await queue.destroy();
           return await interaction.editReply({ embeds: [embed] });
         }
       }

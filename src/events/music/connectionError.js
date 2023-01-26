@@ -1,12 +1,12 @@
 const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
-    name: "error",
+    name: "connectionError",
     async execute(queue, error) {
-        console.error(error);
+        console.log(error);
 
         const errEmbed = new EmbedBuilder();
-        errEmbed.setDescription("An error occurred whilst attempting to perform this action. This media may not be supported.");
+        errEmbed.setDescription("A connection error occurred whilst attempting to perform this action.");
         errEmbed.setColor("Random");
 
         queue.metadata.channel.send({ embeds: [errEmbed] });
