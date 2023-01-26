@@ -3,18 +3,15 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("inspire")
-    .setDescription("Responds with a quote."),
+    .setDescription("Responds with an inspirational image."),
   async execute(interaction) {
-    const response = await fetch("https://zenquotes.io/api/random");
-    const data = await response.json();
-    const quote = data[0]["q"];
-    const author = data[0]["a"];
+    const response = await fetch("https://inspirobot.me/api?generate=true");
+    const data = await response.text();
     const embed = new EmbedBuilder()
-      .setTitle("Inspire")
-      .setDescription(`${quote}`)
-      .addFields({ name: "Author", value: `${author}` })
+      .setImage(data)
       .setColor("Random")
       .setTimestamp();
+
     await interaction.reply({ embeds: [embed] });
   },
 };

@@ -24,9 +24,8 @@ module.exports = {
       max_tokens: 300,
       temperature: 0.9,
     });
-    // console.log(generateResponse.body.generations[0].text);
     await interaction.followUp({
-      content: `<@${interaction.user.id}>`+" "+input+generateResponse.body.generations[0].text,
+      content: `**<@${interaction.user.id}>:**`+" "+input+generateResponse.body.generations[0].text,
     });
   },
 };
