@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const axios = require("axios");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -11,20 +12,27 @@ module.exports = {
         .setRequired(true)
     ),
   async execute(interaction) {
-    const response = await fetch(
-      `https://tenor.googleapis.com/v2/search?q=anime-hug-gifs&key=${process.env.TENOR_API_KEY}&client_key=${process.env.TENOR_CLIENT_KEY}&limit=10`
-    );
-    const json = await response.json();
-    const post = json.results[Math.floor(Math.random() * json.results.length)];
+    axios
+      .get(
+        `https://tenor.googleapis.com/v2/search?q=anime hug gif&key=${process.env.TENOR_API_KEY}&client_key=${process.env.TENOR_CLIENT_KEY}&limit=10&contentfilter=high`
+      )
+      .then((response) => {
+        const data = response.data;
+        const post =
+          data.results[Math.floor(Math.random() * data.results.length)];
 
-    const embed = new EmbedBuilder()
-      .setImage(post.media_formats.gif.url)
-      .setColor("Random");
-    interaction.reply({
-      content: `<@${interaction.user.id}> hugs <@${
-        interaction.options.getUser("user").id
-      }>`,
-      embeds: [embed],
-    });
+        const embed = new EmbedBuilder()
+          .setImage(post.media_formats.gif.url)
+          .setColor("Random");
+        interaction.reply({
+          content: `<@${interaction.user.id}> hugs <@${
+            interaction.options.getUser("user").id
+          }>`,
+          embeds: [embed],
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   },
 };

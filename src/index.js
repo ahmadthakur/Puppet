@@ -1,20 +1,26 @@
-require("dotenv").config();
-const fs = require("node:fs");
-const mongoose = require("mongoose");
+// Require the necessary discord.js classes
 const { Client, Collection } = require("discord.js");
 
+// Require the discord-player package
+const { Player } = require("discord-player");
+
+// Require the dotenv package
+require("dotenv").config();
+
+// Create a new client instance
 const client = new Client({ intents: 32767 });
 
-const { Player } = require("discord-player");
-const player = new Player(client)//   leaveOnEmpty: false, // This options are optional.
-// });
-// You can define the Player as *client.player* to easily access it.
-client.player = player;
+// Create a new Player
+client.player = new Player(client);
+
+// Require the fs package
+const fs = require("node:fs");
 
 client.commands = new Collection();
 client.buttons = new Collection();
 client.commandsArray = [];
 
+// Require the functions folder
 const functionFolders = fs.readdirSync("./src/functions");
 for (const folder of functionFolders) {
   const functionFiles = fs
@@ -25,11 +31,10 @@ for (const folder of functionFolders) {
   }
 }
 
+// Call the functions
 client.handleEvents();
 client.handleCommands();
 client.handleComponents();
 
+// Login to Discord with your client's token
 client.login(process.env.TOKEN);
-(async () => {
-  await mongoose.connect(`${process.env.DATABASE_TOKEN}`).catch(console.error);
-})();

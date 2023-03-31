@@ -1,6 +1,8 @@
 const fs = require("fs");
 const { REST, Routes } = require("discord.js");
 
+const nanospinner = require("nanospinner");
+
 module.exports = (client) => {
   client.handleCommands = async () => {
     const commandFolders = fs.readdirSync("./src/commands");
@@ -19,9 +21,8 @@ module.exports = (client) => {
 
     //deploy the commands
     (async () => {
+      const spinner = nanospinner.createSpinner("Deploying commands").start();
       try {
-        console.log("Started refreshing application (/) commands...");
-
         await rest.put(
           Routes.applicationGuildCommands(
             process.env.CLIENT_ID,
@@ -31,9 +32,9 @@ module.exports = (client) => {
             body: client.commandsArray,
           }
         );
-
-        console.log("Successfully reloaded application (/) commands");
+        spinner.success({text: "Successfully deployed commands"});
       } catch (error) {
+        spinner.error({text: "Failed to deploy commands"});
         console.error(error);
       }
     })();

@@ -1,5 +1,4 @@
 const fs = require("fs");
-const { connection } = require("mongoose");
 
 module.exports = (client) => {
   client.handleComponents = async () => {
@@ -20,7 +19,6 @@ module.exports = (client) => {
           break;
         default:
           break;
-        // console.log(`[Events Handler]; No event folder found with name "${folder}"`);
       }
     }
   };

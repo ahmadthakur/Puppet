@@ -1,5 +1,4 @@
 const fs = require("fs");
-const { connection } = require("mongoose");
 
 module.exports = (client) => {
   client.handleEvents = async () => {
@@ -22,32 +21,22 @@ module.exports = (client) => {
           }
           break;
 
-        case "mongo":
-          for (const file of eventFiles) {
-            const mongo = require(`../../events/${folder}/${file}`);
-            if (mongo.once) {
-              connection.once(mongo.name, (...args) => mongo.execute(...args));
-            }
+        //   case "music":
+        //     for (const file of eventFiles) {
+        //       const music = require(`../../events/${folder}/${file}`);
+        //       if (music.once) {
+        //         client.player.once(fmusic.name, (...args) =>
+        //           music.execute(...args)
+        //         );
+        //       }
 
-            connection.on(mongo.name, (...args) => mongo.execute(...args));
-          }
-          break;
-
-        case "music":
-          for (const file of eventFiles) {
-            const music = require(`../../events/${folder}/${file}`);
-            if (music.once) {
-              client.player.once(music.name, (...args) =>
-                music.execute(...args)
-              );
-            }
-
-            client.player.on(music.name, (...args) => music.execute(...args));
-          }
-          break;
-        default:
-          break;
-        // console.log(`[Events Handler]; No event folder found with name "${folder}"`);
+        //       client.player.on(music.name, (...args) => music.execute(...args));
+        //     }
+        //     break;
+        //   default:
+        //     break;
+        //   // console.log(`[Events Handler]; No event folder found with name "${folder}"`);
+        // }
       }
     }
   };
