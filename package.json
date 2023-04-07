@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
   },
   "author": "Sushi",
   "license": "ISC",
   "dependencies": {
+    "@discord-player/extractor": "^4.1.2",
+    "@discord-player/utils": "^0.2.1",
     "@discordjs/builders": "^1.4.0",
     "@discordjs/opus": "^0.8.0",
     "@discordjs/rest": "^1.5.0",
@@ -19,15 +22,14 @@
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "ffmpeg-static": "^5.1.0",
-    "goodreads-parser": "^1.2.4",
     "isomorphic-unfetch": "^4.0.1",
     "libgenesis": "https://github.com/Sushipie/LibGenesis/tarball/master",
     "libsodium-wrappers": "^0.7.10",
     "nanospinner": "^1.1.0",
     "node-fetch": "^2.6.6",
     "npx": "^3.0.0",
-    "request": "^2.88.2",
-    "ytdl-core": "^4.11.2"
+    "play-dl": "^1.9.6",
+    "request": "^2.88.2"
   },
   "description": ""
 }
