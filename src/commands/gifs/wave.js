@@ -16,7 +16,7 @@ module.exports = {
       .get(
         `https://tenor.googleapis.com/v2/search?q=anime wave gif&key=${process.env.TENOR_API_KEY}&client_key=${process.env.TENOR_CLIENT_KEY}&limit=10&contentfilter=high`
       )
-      .then((response) => {
+      .then(async (response) => {
         const data = response.data;
         const post =
           data.results[Math.floor(Math.random() * data.results.length)];
