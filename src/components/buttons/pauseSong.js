@@ -1,36 +1,33 @@
 const { EmbedBuilder } = require("discord.js");
+const { useQueue } = require("discord-player");
 
 module.exports = {
-    data: {
-        name: "melody_pause_song",
-    },
-    
-    async execute(interaction) {
-        const queue = interaction.client.player.getQueue(interaction.guild.id);
+  data: {
+    name: "melody_pause_song",
+  },
 
-        const embed = new EmbedBuilder();
-        embed.setColor("Random");
+  async execute(interaction) {
+    const queue = useQueue(interaction.guild.id);
 
-        if (!queue || !queue.playing) {
-            embed.setDescription("There isn't currently any music playing.");
-            return await interaction.reply({
-                embeds: [embed],
-                ephemeral: true,
-            });
-        }
+    const embed = new EmbedBuilder();
+    embed.setColor("Random");
 
-        if (!queue) {
-            embed.setDescription("There isn't currently any music playing.");
-            return await interaction.reply({
-                embeds: [embed],
-                ephemeral: true,
-            });
-        }
+    if (!queue || !queue.isPlaying) {
+      embed.setDescription("There isn't currently any music playing.");
+      return await interaction.reply({ embeds: [embed] });
+    } //if there isn't any music playing, then there's no need to pause it
 
-        queue.setPaused(!queue.connection.paused);
+    if (queue.node.isPaused()) {
+      embed.setDescription("The queue is already paused.");
+      return await interaction.reply({ embeds: [embed] });
+    } //if the queue is already paused, then there's no need to pause it again
 
-        embed.setDescription(`<@${interaction.user.id}>: Successfully ${queue.connection.paused ? "paused" : "unpaused"} **[${queue.current.title}](${queue.current.url})**.`);
+    queue.node.setPaused(true); //Pauses the queue
 
-        return await interaction.reply({ embeds: [embed] });
-    },
+    embed.setDescription(
+      `Successfully paused **[${queue.currentTrack.title}](${queue.currentTrack.url})**.`
+    );
+
+    return await interaction.reply({ embeds: [embed] });
+  },
 };

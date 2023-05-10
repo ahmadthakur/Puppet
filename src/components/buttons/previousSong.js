@@ -1,40 +1,31 @@
 const { EmbedBuilder } = require("discord.js");
+const { useHistory, useQueue } = require("discord-player");
 
 module.exports = {
-    data: {
-        name: "melody_back_song",
-    },
-    async execute(interaction) {
-        const queue = interaction.client.player.getQueue(interaction.guild.id);
+  data: {
+    name: "melody_back_song",
+  },
+  async execute(interaction) {
+    const queue = useQueue(interaction.guild.id);
+    const history = useHistory(interaction.guild.id);
 
-        const embed = new EmbedBuilder();
-        embed.setColor("Random");
+    const embed = new EmbedBuilder();
+    embed.setColor("Random");
 
-        if (!queue || !queue.playing) {
-            embed.setDescription("There isn't currently any music playing.");
-            return await interaction.reply({
-                embeds: [embed],
-                ephemeral: true,
-            });
-        }
+    if (!queue || !queue.isPlaying) {
+      embed.setDescription("There isn't currently any music playing.");
+      return await interaction.reply({
+        embeds: [embed],
+        ephemeral: true,
+      });
+    }
 
-        if (!queue || !queue.playing) {
-            embed.setDescription(`There isn't currently any music playing.`);
-            return await interaction.reply({
-                embeds: [embed],
-                ephemeral: true,
-            });
-        } else if (!queue.previousTracks[1]) {
-            embed.setDescription(`There was no music played before this track.`);
-            return await interaction.reply({
-                embeds: [embed],
-                ephemeral: true,
-            });
-        } else {
-            await queue.back();
-            embed.setDescription(`<@${interaction.user.id}>: Returning to the previous track in queue.`);
-        }
+    history.previous(); //Goes back to the previous track
 
-        return await interaction.reply({ embeds: [embed] });
-    },
+    embed.setDescription(
+      `Successfully went back to **[${queue.currentTrack.title}](${queue.currentTrack.url})**.`
+    );
+
+    return await interaction.reply({ embeds: [embed] });
+  },
 };

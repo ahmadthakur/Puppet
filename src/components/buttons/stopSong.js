@@ -1,26 +1,23 @@
 const { EmbedBuilder } = require("discord.js");
+const { useQueue } = require("discord-player");
 
 module.exports = {
-    data: {
-        name: "melody_stop_song",
-    },
-    async execute(interaction) {
-        const queue = interaction.client.player.getQueue(interaction.guild.id);
+  data: {
+    name: "melody_stop_song",
+  },
+  async execute(interaction) {
+    const queue = useQueue(interaction.guild.id);
 
-        const embed = new EmbedBuilder();
-        embed.setColor("Random");
+    const embed = new EmbedBuilder();
+    embed.setColor("Random");
 
-        if (!queue || !queue.playing) {
-            embed.setDescription("There isn't currently any music playing.");
-            return await interaction.reply({
-                embeds: [embed],
-                ephemeral: true,
-            });
-        }
+    if (!queue || !queue.isPlaying) {
+      embed.setDescription(`There isn't currently any music playing.`);
+    } else {
+      queue.delete();
+      embed.setDescription("The music has been stopped.");
+    }
 
-        queue.destroy();
-        embed.setDescription(`<@${interaction.user.id}>: The music has been stopped.`);
-
-        return await interaction.reply({ embeds: [embed] });
-    },
+    return await interaction.reply({ embeds: [embed] });
+  },
 };
