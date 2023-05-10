@@ -11,7 +11,8 @@ require("dotenv").config();
 const client = new Client({ intents: 32767 });
 
 // Create a new Player
-const player = Player.singleton(client);
+client.player = new Player(client);
+client.player.extractors.loadDefault();
 
 // Require the fs package
 const fs = require("node:fs");
