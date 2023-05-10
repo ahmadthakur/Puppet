@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const axios = require("axios");
+const { default: axios } = require("axios");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -17,7 +17,7 @@ module.exports = {
 
     axios
       .get(`https://lexica.art/api/v1/search?q=${joinedCategory}`)
-      .then((response) => {
+      .then(async (response) => {
         const data = response.data;
         const post =
           data.images[Math.floor(Math.random() * data.images.length)];

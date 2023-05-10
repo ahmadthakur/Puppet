@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const axios = require("axios");
+const { default: axios } = require("axios");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -31,7 +31,7 @@ module.exports = {
       .get(
         `https://api.openweathermap.org/data/2.5/weather?q=${joinedCityCapitalised}&appid=${process.env.WEATHER_API_KEY}&units=metric`
       )
-      .then((response) => {
+      .then(async (response) => {
         const data = response.data;
         const temp = data.main.temp;
         const feelsLike = data.main.feels_like;
