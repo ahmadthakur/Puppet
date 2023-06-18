@@ -23,18 +23,12 @@ module.exports = (client) => {
     (async () => {
       const spinner = nanospinner.createSpinner("Deploying commands").start();
       try {
-        await rest.put(
-          Routes.applicationGuildCommands(
-            process.env.CLIENT_ID,
-            process.env.GUILD_ID
-          ),
-          {
-            body: client.commandsArray,
-          }
-        );
-        spinner.success({text: "Successfully deployed commands"});
+        await rest.put(Routes.applicationCommands(process.env.CLIENT_ID), {
+          body: client.commandsArray,
+        });
+        spinner.success({ text: "Successfully deployed commands" });
       } catch (error) {
-        spinner.error({text: "Failed to deploy commands"});
+        spinner.error({ text: "Failed to deploy commands" });
         console.error(error);
       }
     })();
