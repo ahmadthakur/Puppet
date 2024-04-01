@@ -1,20 +1,8 @@
-import { Client, Collection } from "discord.js"; // Require the necessary discord.js classes
+const { Client, Collection } = require("discord.js"); // Require the necessary discord.js classes
 
-import { Player } from "discord-player"; // Require the discord-player package
+const { Player } = require("discord-player"); // Require the discord-player package
 
 require("dotenv").config(); // Require the dotenv package
-
-declare module "discord.js" {
-  interface Client {
-    commands: Collection<string, any>;
-    buttons: Collection<string, any>;
-    player: Player;
-    commandsArray: any;
-    handleEvents: () => void;
-    handleCommands: () => void;
-    handleComponents: () => void;
-  }
-}
 
 const client = new Client({ intents: 32767 }); // Create a new client instance
 
@@ -32,7 +20,7 @@ const functionFolders = fs.readdirSync("./src/functions");
 for (const folder of functionFolders) {
   const functionFiles = fs
     .readdirSync(`./src/functions/${folder}`)
-    .filter((file: string) => file.endsWith(".js"));
+    .filter((file) => file.endsWith(".js"));
   for (const file of functionFiles) {
     require(`./functions/${folder}/${file}`)(client);
   }
