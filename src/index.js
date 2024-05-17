@@ -6,8 +6,14 @@ require("dotenv").config(); // Require the dotenv package
 
 const client = new Client({ intents: 32767 }); // Create a new client instance
 
-client.player = new Player(client); // Create a new Player
-client.player.extractors.loadDefault(); // Load the default extractors
+
+// Create a new Player
+client.player = new Player(client);
+client.player.extractors.loadDefault((ext) => ext !== 'YouTubeExtractor');
+
+const ffmpeg = require('@ffmpeg-installer/ffmpeg');
+
+
 
 const fs = require("node:fs"); // Require the fs package
 
@@ -31,4 +37,7 @@ client.handleEvents();
 client.handleCommands();
 client.handleComponents();
 
-client.login(process.env.TOKEN); // Login to Discord with your client's token
+
+// Login to Discord with your client's token
+client.login(process.env.TOKEN);
+console.log(ffmpeg.path);
