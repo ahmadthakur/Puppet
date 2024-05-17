@@ -3,6 +3,8 @@
 const colors = require("colors");
 
 // Discord Player Initialization
+const ffmpeg = require('@ffmpeg-installer/ffmpeg');
+process.env.FFMPEG_PATH = ffmpeg.path;
 const { Player } = require("discord-player");
 
 // Export the event

@@ -12,7 +12,10 @@ const client = new Client({ intents: 32767 });
 
 // Create a new Player
 client.player = new Player(client);
-client.player.extractors.loadDefault();
+client.player.extractors.loadDefault((ext) => ext !== 'YouTubeExtractor');
+
+const ffmpeg = require('@ffmpeg-installer/ffmpeg');
+
 
 // Require the fs package
 const fs = require("node:fs");
@@ -39,3 +42,4 @@ client.handleComponents();
 
 // Login to Discord with your client's token
 client.login(process.env.TOKEN);
+console.log(ffmpeg.path);
