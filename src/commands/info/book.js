@@ -17,7 +17,8 @@ module.exports = {
     axios
       .get(`https://www.googleapis.com/books/v1/volumes?q=${joinedBook}`)
       .then(async (response) => {
-        const data = response.data.items[0].volumeInfo;
+        const data = response.data.items[1].volumeInfo;
+        console.log(data);
         const title = data.title;
         const authors = data.authors;
         const description = data.description;
@@ -31,15 +32,17 @@ module.exports = {
           .addFields(
             { name: "Authors", value: `${authors}`, inline: true },
             { name: "Page Count", value: `${pageCount}`, inline: true },
-            { name: "Rating", value: rating, inline: true },
+            { name: "Rating", value: `${rating}`, inline: true },
             {
               name: "Categories",
-              value: categories,
+              value: `${categories}`,
             }
           );
+        console.log(embed);
         interaction.reply({ embeds: [embed] });
       })
       .catch((error) => {
+        console.log(error);
         interaction.reply({
           content: "Book not found.",
           ephemeral: true,
