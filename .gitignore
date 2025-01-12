@@ -5,3 +5,4 @@ fly.toml
 Procfile
 dockerfile
 .env
+.github
