@@ -14,6 +14,7 @@
     "@discordjs/rest": "^1.5.0",
     "@discordjs/voice": "^0.13.0",
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@google/generative-ai": "^0.21.0",
     "axios": "^1.1.3",
     "cohere-ai": "^5.0.2",
     "colors": "^1.4.0",
