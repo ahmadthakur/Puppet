@@ -1,10 +1,13 @@
-const { Client, Collection } = require("discord.js"); // Require the necessary discord.js classes
+const { Client, Collection, GatewayIntentBits  } = require("discord.js"); // Require the necessary discord.js classes
 
 const { Player } = require("discord-player"); // Require the discord-player package
 
 require("dotenv").config(); // Require the dotenv package
 
-const client = new Client({ intents: 32767 }); // Create a new client instance
+const client = new Client({
+  intents: [32767, GatewayIntentBits.MessageContent]
+
+}); // Create a new client instance
 
 
 // Create a new Player
@@ -39,5 +42,5 @@ client.handleComponents();
 
 
 // Login to Discord with your client's token
-client.login(process.env.TOKEN);
+client.login(process.env.DISCORD_BOT_TOKEN);
 console.log(ffmpeg.path);

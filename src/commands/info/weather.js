@@ -29,7 +29,7 @@ module.exports = {
     //get the weather info of the city
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${joinedCityCapitalised}&appid=${process.env.WEATHER_API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?q=${joinedCityCapitalised}&appid=${process.env.OPEN_WEATHER_MAP_API_KEY}&units=metric`
       )
       .then(async (response) => {
         const data = response.data;
