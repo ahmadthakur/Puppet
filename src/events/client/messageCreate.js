@@ -8,7 +8,8 @@ module.exports = {
   async execute(message) {
     if (message.author.bot) return;
 
-    const specificChannelId = "1327924013837586463";  // Replace with your channel ID
+    const specificChannelId = `${process.env.AI_CHAT_CHANNEL_ID}`;
+    // const specificChannelId = "1327924013837586463";  // Replace with your channel ID
     if (message.channel.id !== specificChannelId) return;
 
     const userId = message.author.id;
