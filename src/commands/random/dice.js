@@ -1,8 +1,4 @@
-const {
-  SlashCommandBuilder,
-  EmbedBuilder,
-  AttachmentBuilder,
-} = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -10,25 +6,30 @@ module.exports = {
     .setDescription("Rolls a dice."),
   async execute(interaction) {
     const dice = Math.floor(Math.random() * 6) + 1;
-    const file = new AttachmentBuilder("./src/assets/dice/diceroll.gif");
 
-    //send an embed and then 2 seconds later edit it
+    const rollingEmoji = "🎲";
+    const faces = {
+      1: "⚀",
+      2: "⚁",
+      3: "⚂",
+      4: "⚃",
+      5: "⚄",
+      6: "⚅",
+    };
+
+    // send initial embed with rolling text (uses emoji instead of gif)
     const embed = new EmbedBuilder()
       .setTitle("Dice Roll")
-      .setThumbnail("attachment://diceroll.gif")
-      .setDescription(`Rolling a dice...`)
-      .setColor("Random");
-    await interaction.reply({ embeds: [embed], files: [file] });
+      .setDescription(`${rollingEmoji} Rolling a dice...`)
+      .setColor(0x3498db);
+    await interaction.reply({ embeds: [embed] });
 
-    const dicenumber = new AttachmentBuilder(
-      `./src/assets/dice/dice${dice}.png`
-    );
-
+    // After a short delay, edit with the result emoji
     setTimeout(() => {
       embed
-        .setDescription(`You rolled a ${dice}`)
-        .setThumbnail(`attachment://dice${dice}.png`);
-      interaction.editReply({ embeds: [embed], files: [dicenumber] });
-    }, 2000);
+        .setDescription(`You rolled ${faces[dice]} ${dice}`)
+        .setTitle(`Dice Roll ${faces[dice]}`);
+      interaction.editReply({ embeds: [embed] });
+    }, 1200);
   },
 };

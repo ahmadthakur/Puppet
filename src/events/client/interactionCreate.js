@@ -1,11 +1,28 @@
 // Description: This event will run when a user interacts with a button or a slash command.
-// Requirements: colors
 const colors = require("colors");
 
 // Export the event
 module.exports = {
   name: "interactionCreate",
   async execute(interaction, client) {
+    // Handle autocomplete requests
+    if (interaction.isAutocomplete()) {
+      const command = interaction.client.commands.get(interaction.commandName);
+      if (!command || !command.autocompleteRun) return;
+
+      try {
+        await command.autocompleteRun(interaction);
+      } catch (error) {
+        console.error(
+          colors.red(
+            `[Autocomplete Error]; Command "${interaction.commandName}": ${error}`
+          )
+        );
+        await interaction.respond([]);
+      }
+      return;
+    }
+
     // If the interaction is a slash command
     if (interaction.isChatInputCommand()) {
       const command = interaction.client.commands.get(interaction.commandName);
@@ -23,11 +40,17 @@ module.exports = {
             `[Command Handler]; No command found with name "${interaction.commandName}", ${error}`
           )
         );
-        // Send an ephemeral message to the user
-        await interaction.reply({
-          content: "There was an error while executing this command!",
-          ephemeral: true,
-        });
+        // Send an ephemeral message to the user. Use editReply if we've already deferred/replied.
+        try {
+          if (interaction.deferred || interaction.replied) {
+            await interaction.editReply({ content: "There was an error while executing this command!" });
+          } else {
+            await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
+          }
+        } catch (replyErr) {
+          // If the interaction is unknown/expired, just log and move on.
+          console.error(colors.yellow(`[Command Handler]; Failed to notify user about error: ${replyErr}`));
+        }
       }
       // If the interaction is a button
     } else if (interaction.isButton()) {

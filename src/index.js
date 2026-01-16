@@ -1,28 +1,22 @@
-const { Client, Collection, GatewayIntentBits  } = require("discord.js"); // Require the necessary discord.js classes
-
-const { Player } = require("discord-player"); // Require the discord-player package
-
-require("dotenv").config(); // Require the dotenv package
+const { Client, Collection, GatewayIntentBits, ChannelType } = require("discord.js");
+require("dotenv").config();
 
 const client = new Client({
-  intents: [32767, GatewayIntentBits.MessageContent]
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildVoiceStates,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+  ],
+});
 
-}); // Create a new client instance
+// Simplified robot: no music player included
 
+const fs = require("node:fs");
 
-// Create a new Player
-client.player = new Player(client);
-client.player.extractors.loadDefault((ext) => ext !== 'YouTubeExtractor');
-
-const ffmpeg = require('@ffmpeg-installer/ffmpeg');
-
-
-
-const fs = require("node:fs"); // Require the fs package
-
-client.commands = new Collection(); // Create a new commands collection
-client.buttons = new Collection(); // Create a new buttons collection
-client.commandsArray = []; // Create a new commands array
+client.commands = new Collection();
+client.buttons = new Collection();
+client.commandsArray = [];
 
 // Require the functions folder
 const functionFolders = fs.readdirSync("./src/functions");
@@ -35,12 +29,11 @@ for (const folder of functionFolders) {
   }
 }
 
-// Call the functions
+// Initialize handlers immediately (no async wait needed)
+console.log("Initializing handlers...");
 client.handleEvents();
 client.handleCommands();
 client.handleComponents();
 
-
 // Login to Discord with your client's token
 client.login(process.env.DISCORD_BOT_TOKEN);
-console.log(ffmpeg.path);

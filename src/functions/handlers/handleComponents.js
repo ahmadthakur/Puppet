@@ -13,6 +13,8 @@ module.exports = (client) => {
       switch (folder) {
         case "buttons":
           for (const file of componentFiles) {
+            // skip legacy music button components (filenames containing 'song')
+            if (file.toLowerCase().includes("song")) continue;
             const button = require(`../../components/${folder}/${file}`);
             client.buttons.set(button.data.name, button);
           }

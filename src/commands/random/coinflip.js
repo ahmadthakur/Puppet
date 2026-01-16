@@ -1,8 +1,4 @@
-const {
-  SlashCommandBuilder,
-  EmbedBuilder,
-  AttachmentBuilder,
-} = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -12,13 +8,14 @@ module.exports = {
     const coin = ["Heads", "Tails"];
     const result = coin[Math.floor(Math.random() * coin.length)];
 
-    const coinFace = new AttachmentBuilder(`./src/assets/coin/${result}.png`);
+    const emojiMap = { Heads: "👍", Tails: "👎" };
+    const emoji = emojiMap[result] || "🪙";
 
     const embed = new EmbedBuilder()
-      .setTitle("Coin Flip")
-      .setThumbnail(`attachment://${result}.png`)
-      .setDescription(`The coin landed on ${result}`)
-      .setColor("Random");
-    await interaction.reply({ embeds: [embed], files: [coinFace] });
+      .setTitle(`Coin Flip ${emoji}`)
+      .setDescription(`The coin landed on ${emoji} ${result}`)
+      .setColor(0x3498db);
+
+    await interaction.reply({ embeds: [embed] });
   },
 };
